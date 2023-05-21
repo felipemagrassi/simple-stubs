@@ -1,4 +1,4 @@
-require "post"
+require 'post'
 
 class Dashboard
   def initialize(posts:)

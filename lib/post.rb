@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
 
   def self.today
     where(
-      "posts.created_at >= ? AND posts.created_at <= ?",
+      'posts.created_at >= ? AND posts.created_at <= ?',
       Time.now.beginning_of_day,
       Time.now.end_of_day
     )

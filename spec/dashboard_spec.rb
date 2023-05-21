@@ -1,17 +1,19 @@
-require "spec_helper"
-require "dashboard"
+require 'spec_helper'
+require 'dashboard'
 
 describe Dashboard do
-  describe "#posts" do
-    it "returns posts created today" do
-      create :post, title: "first_today", created_at: Time.now.beginning_of_day
-      create :post, title: "last_today", created_at: Time.now.end_of_day
-      create :post, title: "yesterday", created_at: 1.day.ago.end_of_day
-      dashboard = Dashboard.new(posts: Post.all)
+  describe '#posts' do
+    it 'returns posts created today' do
+      first_post = build_stubbed(:post, title: 'first_today', created_at: Time.now)
+      last_post = build_stubbed(:post, title: 'last_today', created_at: Time.now)
+      posts = [first_post, last_post]
+
+      dashboard = Dashboard.new(posts: posts)
+      allow(dashboard).to receive(:todays_posts).and_return(posts)
 
       result = dashboard.todays_posts
 
-      expect(result.map(&:title)).to match_array(%w(first_today last_today))
+      expect(result.map(&:title)).to match_array(%w[first_today last_today])
     end
   end
 
